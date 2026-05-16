@@ -125,9 +125,11 @@ Consumer 逻辑：
 - `tb_voucher_order` 需要唯一索引：`uk_user_voucher(user_id, voucher_id)`
 - 辅助脚本：`docs/stage-1b-voucher-order-unique-index.sql`
 
-## 6. 本地环境
+## 6. 本地环境与新机器自检
 
-已验证过的本地环境：
+以下环境信息是当前开发机的验证记录，只代表本机已经跑通过。换到另一台电脑后，必须重新验证环境，不要直接假设可用。
+
+当前开发机已验证：
 
 - MySQL：数据库 `hmdp`，账号密码 `root / 1234`
 - Redis：`127.0.0.1:6379`
@@ -151,6 +153,21 @@ http://localhost:8088
 ```text
 http://localhost:8081
 ```
+
+新电脑接手时请逐项自检：
+
+1. Java：确认 IDEA Project SDK 和 Maven 使用 Java 17。
+2. Maven：在项目根目录执行 `mvn -q test`，确认依赖能下载、测试能运行。
+3. MySQL：确认本机存在 `hmdp` 数据库，账号密码为 `root / 1234`，核心业务表已导入。
+4. Redis：确认 `127.0.0.1:6379` 可连接，`PING` 返回 `PONG`。
+5. Docker Desktop：确认 Docker 正常启动。
+6. Kafka：执行 `docker compose up -d`，确认 `hmdp-kafka` 和 `hmdp-kafka-ui` 容器运行。
+7. Kafka UI：浏览器打开 `http://localhost:8088`，能看到 `hmdp-local` 集群。
+8. 数据库索引：确认 `tb_voucher_order` 存在 `uk_user_voucher(user_id, voucher_id)`；没有则执行 `docs/stage-1b-voucher-order-unique-index.sql`。
+9. 后端启动：运行 `HmDianPingApplication`，确认端口 `8081` 正常。
+10. Apifox：确认能调用登录接口拿 token，再调用秒杀接口。
+
+如果任何一项失败，先修环境，不要进入新功能开发。
 
 ## 7. 自动化测试
 
@@ -246,11 +263,12 @@ https://github.com/john10hyh/hmdp-local-life-promotion.git
 
 当前环境和项目状态：
 
-- MySQL 使用数据库 hmdp，账号密码 root / 1234。
-- Redis 使用 127.0.0.1:6379。
-- Kafka 使用 docker-compose 在 Docker 中运行，不依赖 Windows 原生 Kafka。
-- Kafka UI 地址是 http://localhost:8088。
-- 后端端口是 8081。
+- MySQL 目标配置：数据库 hmdp，账号密码 root / 1234。新电脑必须重新验证数据库是否存在、表是否导入。
+- Redis 目标配置：127.0.0.1:6379。新电脑必须重新验证连接是否可用。
+- Kafka 目标配置：使用 docker-compose 在 Docker 中运行，不依赖 Windows 原生 Kafka。新电脑必须重新执行 docker compose up -d 并检查容器状态。
+- Kafka UI 目标地址：http://localhost:8088。新电脑必须确认浏览器可打开。
+- 后端目标端口：8081。新电脑必须确认 IDEA 能启动应用且端口未被占用。
+- 接手后先完成 docs/handoff-guide.md 中“新电脑接手时请逐项自检”的环境检查。
 - 阶段 1A：Redis + Lua 秒杀资格判断，已完成并人工验收通过。
 - 阶段 1B：Kafka 异步下单，自动化测试已通过，等待人工验收。
 - 在用户明确确认阶段 1B 人工验收通过之前，不要进入阶段 2。
