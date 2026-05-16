@@ -1,0 +1,22 @@
+# Build output
+target/
+
+# IDE
+.idea/
+*.iml
+
+# Logs
+*.log
+src/main/resources/nginx-1.18.0/logs/*.log
+
+# Bundled runtime binaries
+src/main/resources/nginx-1.18.0.zip
+src/main/resources/nginx-1.18.0/nginx.exe
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Runtime/temp
+*.tmp
+*.bak
