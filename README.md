@@ -76,6 +76,7 @@ mvn -q test
 
 - 架构设计：`docs/architecture-design.md`
 - 开发日志：`docs/development-log.md`
+- 交接指南：`docs/handoff-guide.md`
 - Redis 登录技术报告：`docs/redis-login-technical-report.md`
 
 ## 当前阶段
