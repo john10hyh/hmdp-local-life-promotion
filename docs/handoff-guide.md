@@ -237,6 +237,13 @@ mvn -q "-Dtest=KafkaTopicConfigTest,VoucherOrderConsumerTest" test
 
 https://github.com/john10hyh/hmdp-local-life-promotion.git
 
+请先确认你拿到的是 GitHub 最新 main 分支：
+
+git clone https://github.com/john10hyh/hmdp-local-life-promotion.git
+cd hmdp-local-life-promotion
+git status
+git log -1 --oneline
+
 项目是基于黑马点评 hmdp 改造的「跃动一本地生活与大促平台」，目标是按照简历方案 B 实现以下能力：
 
 1. Redis + Lua 秒杀主链路
@@ -277,6 +284,8 @@ https://github.com/john10hyh/hmdp-local-life-promotion.git
 
 当前环境和项目状态：
 
+- 本仓库已经做过交接前最佳实践升级：包含 `.env.example`、`docker-compose.dev.yml`、GitHub Actions CI、`docs/environment-setup.md`、`docs/development-workflow.md`。
+- 新电脑必须先按 `docs/environment-setup.md` 做环境自检；当前开发机的验证记录只能作为参考，不能视为新电脑已经可用。
 - MySQL 目标配置：数据库 hmdp，账号密码 root / 1234。新电脑必须重新验证数据库是否存在、表是否导入。
 - Redis 目标配置：127.0.0.1:6379。新电脑必须重新验证连接是否可用。
 - Kafka 目标配置：使用 docker-compose 在 Docker 中运行，不依赖 Windows 原生 Kafka。新电脑必须重新执行 docker compose up -d 并检查容器状态。
