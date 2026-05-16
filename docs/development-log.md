@@ -191,6 +191,17 @@
 ```
 
 ```text
+日期：2026-05-16
+阶段：交接前工程最佳实践升级
+自动化测试命令：mvn -q test
+自动化测试结果：通过。首次回归发现 MySQL 8 场景下 `Public Key Retrieval is not allowed`，补充 JDBC 参数 `allowPublicKeyRetrieval=true` 后重新执行，全量测试通过。
+人工测试结论：无需单独人工验收；本次不改变业务行为，只增强新电脑接手、环境复现和 GitHub 协作能力。
+发现问题：交接文档原先容易让新电脑误以为当前机器环境验证可复用；已改成“当前开发机验证记录 + 新机器必做自检”。全量测试还暴露 MySQL 8 认证参数兼容问题。
+修复记录：新增 `.env.example`、`docker-compose.dev.yml`、GitHub Actions CI、`docs/environment-setup.md`、`docs/development-workflow.md`；`application.yaml` 支持环境变量覆盖且保留本地默认值；README 和 handoff 文档补充新入口；JDBC 默认连接串补充 `allowPublicKeyRetrieval=true`。
+是否进入下一阶段：否。仍等待阶段 1B 人工验收。
+```
+
+```text
 日期：2026-05-10
 阶段：阶段 1A - Redis + Lua 秒杀资格判断
 自动化测试命令：mvn -q "-Dtest=VoucherServiceImplTest,SeckillLuaScriptTest,VoucherOrderServiceImplTest,VoucherOrderControllerTest" test

@@ -29,17 +29,23 @@
 
 ## 本地启动
 
-1. 启动 MySQL，数据库名为 `hmdp`，账号密码为 `root / 1234`。
-2. 启动 Redis，默认地址为 `127.0.0.1:6379`。
-3. 启动 Kafka：
+方式 A：使用本机已有 MySQL / Redis，只用 Docker 启动 Kafka：
 
 ```bash
 docker compose up -d
 ```
 
-4. 在 IDEA 中运行 `com.hmdp.HmDianPingApplication`。
-5. 后端地址：`http://localhost:8081`。
-6. Kafka UI：`http://localhost:8088`。
+方式 B：新电脑一键启动 MySQL、Redis、Kafka、Kafka UI：
+
+```bash
+docker compose -f docker-compose.dev.yml up -d
+```
+
+然后在 IDEA 中运行 `com.hmdp.HmDianPingApplication`。
+
+后端地址：`http://localhost:8081`。
+
+Kafka UI：`http://localhost:8088`。
 
 ## 阶段 1B 数据库索引
 
@@ -77,6 +83,8 @@ mvn -q test
 - 架构设计：`docs/architecture-design.md`
 - 开发日志：`docs/development-log.md`
 - 交接指南：`docs/handoff-guide.md`
+- 环境搭建：`docs/environment-setup.md`
+- 开发工作流：`docs/development-workflow.md`
 - Redis 登录技术报告：`docs/redis-login-technical-report.md`
 
 ## 当前阶段

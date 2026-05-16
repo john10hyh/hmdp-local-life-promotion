@@ -1,0 +1,59 @@
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: hmdp-mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: hmdp
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - hmdp-mysql-data:/var/lib/mysql
+      - ./hmdp.sql:/docker-entrypoint-initdb.d/01-hmdp.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p1234"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: hmdp-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - hmdp-redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped
+
+  kafka:
+    image: apache/kafka:3.9.1
+    container_name: hmdp-kafka
+    ports:
+      - "9092:9092"
+    restart: unless-stopped
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:v0.7.2
+    container_name: hmdp-kafka-ui
+    depends_on:
+      - kafka
+    ports:
+      - "8088:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: hmdp-local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+    restart: unless-stopped
+
+volumes:
+  hmdp-mysql-data:
+  hmdp-redis-data:

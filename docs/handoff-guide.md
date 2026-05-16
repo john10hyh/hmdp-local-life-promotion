@@ -23,12 +23,16 @@ cd hmdp-local-life-promotion
 2. `docs/architecture-design.md`
 3. `docs/development-log.md`
 4. `docs/handoff-guide.md`
+5. `docs/environment-setup.md`
+6. `docs/development-workflow.md`
 
 其中：
 
 - `architecture-design.md`：整体架构、模块边界、技术取舍。
 - `development-log.md`：阶段状态、TDD 记录、自动化测试结果、人工验收步骤。
 - `handoff-guide.md`：跨电脑或跨 AI 接手时的快速上下文。
+- `environment-setup.md`：新电脑环境搭建、自检清单和常见问题。
+- `development-workflow.md`：SPEC + TDD 工作流、分支和提交规范。
 
 如果实际开发方案与架构文档不一致，必须先更新 `docs/architecture-design.md`，再继续写代码。
 
@@ -169,6 +173,12 @@ http://localhost:8081
 
 如果任何一项失败，先修环境，不要进入新功能开发。
 
+也可以直接参考完整环境文档：
+
+```text
+docs/environment-setup.md
+```
+
 ## 7. 自动化测试
 
 全量测试：
@@ -243,12 +253,16 @@ https://github.com/john10hyh/hmdp-local-life-promotion.git
 2. docs/architecture-design.md
 3. docs/development-log.md
 4. docs/handoff-guide.md
+5. docs/environment-setup.md
+6. docs/development-workflow.md
 
 这些文档是项目交接核心：
 
 - architecture-design.md 记录整体架构、设计思路、模块边界和技术取舍。
 - development-log.md 记录开发过程、阶段状态、测试记录和人工验收步骤。
 - handoff-guide.md 记录跨电脑接手上下文和当前开发约束。
+- environment-setup.md 记录新电脑环境搭建和自检清单。
+- development-workflow.md 记录 SPEC + TDD 工作流、分支规范和提交规范。
 - 如果实际开发方案和架构设计不一致，必须先更新 architecture-design.md，再继续开发。
 - 每个阶段完成后，必须更新 development-log.md，写清楚自动化测试结果、人工测试步骤、预期结果、常见失败原因和是否进入下一阶段。
 

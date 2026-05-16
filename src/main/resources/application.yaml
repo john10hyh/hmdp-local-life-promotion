@@ -1,17 +1,17 @@
 server:
-  port: 8081
+  port: ${SERVER_PORT:8081}
 spring:
   application:
     name: hmdp
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/hmdp?useSSL=false&serverTimezone=UTC
-    username: root
-    password: 1234
+    url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:hmdp}?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:1234}
   redis:
-    host: 127.0.0.1
-    port: 6379
-    password:
+    host: ${REDIS_HOST:127.0.0.1}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:}
     lettuce:
       pool:
         max-active: 10
@@ -19,7 +19,7 @@ spring:
         min-idle: 1
         time-between-eviction-runs: 10s
   kafka:
-    bootstrap-servers: 127.0.0.1:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:127.0.0.1:9092}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
